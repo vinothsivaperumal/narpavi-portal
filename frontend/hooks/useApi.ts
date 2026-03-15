@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import api from '@/lib/api';
 import type { AxiosRequestConfig } from 'axios';
 
@@ -16,6 +16,9 @@ export function useApi<T>(url: string, config?: AxiosRequestConfig): UseApiState
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tick, setTick] = useState(0);
+  // Stable ref for config to avoid re-running the effect when a new object is passed inline
+  const configRef = useRef(config);
+  useEffect(() => { configRef.current = config; });
 
   const refetch = useCallback(() => setTick((t) => t + 1), []);
 
@@ -25,7 +28,7 @@ export function useApi<T>(url: string, config?: AxiosRequestConfig): UseApiState
     setError(null);
 
     api
-      .get<T>(url, config)
+      .get<T>(url, configRef.current)
       .then((res) => {
         if (!cancelled) setData(res.data);
       })
@@ -43,7 +46,6 @@ export function useApi<T>(url: string, config?: AxiosRequestConfig): UseApiState
     return () => {
       cancelled = true;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url, tick]);
 
   return { data, loading, error, refetch };
