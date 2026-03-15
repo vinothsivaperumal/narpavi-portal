@@ -41,7 +41,7 @@ narpavi-portal/
 
 | Layer         | Technology                              |
 |---------------|-----------------------------------------|
-| Web Frontend  | Next.js 14, React, TailwindCSS          |
+| Web Frontend  | Next.js 15, React, TailwindCSS          |
 | Mobile        | React Native (Expo), TypeScript         |
 | Backend       | Node.js 20, NestJS 10, TypeScript       |
 | Database      | PostgreSQL 15                           |

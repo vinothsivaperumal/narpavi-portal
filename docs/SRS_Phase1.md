@@ -67,7 +67,7 @@ Phase 1 covers:
 
 | Layer       | Technology            |
 |-------------|-----------------------|
-| Frontend    | Next.js 14, TailwindCSS |
+| Frontend    | Next.js 15, TailwindCSS |
 | Backend     | Node.js 20, NestJS 10 |
 | Database    | PostgreSQL 15         |
 | Auth        | JWT, bcryptjs         |
