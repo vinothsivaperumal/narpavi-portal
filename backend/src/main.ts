@@ -1,3 +1,6 @@
+import 'reflect-metadata';
+import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -15,6 +18,17 @@ async function bootstrap() {
   );
 
   app.enableCors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:3001',
+    credentials: true,
+  });
+
+  app.setGlobalPrefix('api/v1');
+
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
+  console.log(`Application is running on: http://localhost:${port}/api/v1`);
+}
+
     origin: [
       process.env.FRONTEND_URL || 'http://localhost:3001',
       'http://localhost:19006',
